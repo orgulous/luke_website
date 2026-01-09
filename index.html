@@ -1,136 +1,608 @@
-<!doctype html>
-<!-- Copyright © Luke Chen-->
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <TITLE>Luke's Website</TITLE>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="page.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUKE.EXE</title>
     <meta name="google-site-verification" content="jJnORi6h2HOIkkVnp8tzLiCcX3kvWHixpicLqGFhrv4" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --crt-green: #33ff33;
+            --crt-dim: #20aa20;
+            --crt-bg: #0a1a0a;
+            --win-white: #ffffff;
+            --win-black: #000000;
+        }
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CRT Monitor Frame - Chunkier, more 80s */
+        .monitor-frame {
+            flex: 1;
+            background: linear-gradient(160deg, #d4d0c8 0%, #a8a498 30%, #7c7870 100%);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 8px;
+            box-shadow: 
+                inset 0 2px 4px rgba(255,255,255,0.3),
+                inset 0 -4px 8px rgba(0,0,0,0.3),
+                0 8px 32px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .monitor-bezel {
+            flex: 1;
+            background: #2a2a2a;
+            border-radius: 6px;
+            padding: 16px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* CRT Screen - Green phosphor monochrome */
+        .crt-screen {
+            flex: 1;
+            background: var(--crt-bg);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.5);
+        }
+
+        /* Scanlines - subtle */
+        .crt-screen::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* CRT Flicker - toned way down */
+        .crt-screen::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 30, 0, 0.03);
+            pointer-events: none;
+            z-index: 101;
+            animation: flicker 4s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Screen glow - green phosphor */
+        .screen-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: inset 0 0 80px rgba(51, 255, 51, 0.05);
+            pointer-events: none;
+            border-radius: 4px;
+            z-index: 99;
+        }
+
+        /* Desktop - Windows 1.0 style tiled background */
+        .desktop {
+            flex: 1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    var(--crt-bg) 0px,
+                    var(--crt-bg) 2px,
+                    #0d1f0d 2px,
+                    #0d1f0d 4px
+                );
+            position: relative;
+            padding: 8px;
+            overflow: auto;
+        }
+
+        /* Title bar - Windows 1.0 style */
+        .title-bar {
+            background: var(--crt-bg);
+            border-bottom: 2px solid var(--crt-green);
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            color: var(--crt-green);
+        }
+
+        .title-bar-text {
+            flex: 1;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Windows - Windows 1.0 tiled style */
+        .window {
+            position: absolute;
+            background: var(--crt-bg);
+            border: 2px solid var(--crt-green);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .window-titlebar {
+            background: var(--crt-green);
+            color: var(--crt-bg);
+            padding: 2px 6px;
+            display: flex;
+            align-items: center;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            cursor: move;
+            user-select: none;
+        }
+
+        .window-titlebar.inactive {
+            background: var(--crt-dim);
+        }
+
+        .window-title {
+            flex: 1;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .window-btn {
+            width: 18px;
+            height: 14px;
+            background: var(--crt-bg);
+            border: 1px solid var(--crt-green);
+            color: var(--crt-green);
+            font-size: 12px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'VT323', monospace;
+        }
+
+        .window-btn:hover {
+            background: var(--crt-green);
+            color: var(--crt-bg);
+        }
+
+        .window-content {
+            padding: 8px;
+            background: var(--crt-bg);
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            color: var(--crt-green);
+            flex: 1;
+            overflow: auto;
+            line-height: 1.4;
+        }
+
+        /* DOS Prompt Style */
+        .dos-text {
+            white-space: pre-wrap;
+            font-family: 'VT323', monospace;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 16px;
+            background: var(--crt-green);
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Links */
+        .window-content a {
+            color: var(--crt-green);
+            text-decoration: none;
+        }
+
+        .window-content a:hover {
+            background: var(--crt-green);
+            color: var(--crt-bg);
+        }
+
+        .window-content a::before {
+            content: "[ ";
+        }
+
+        .window-content a::after {
+            content: " ]";
+        }
+
+        /* Dividers */
+        .divider {
+            border: none;
+            border-top: 1px dashed var(--crt-dim);
+            margin: 8px 0;
+        }
+
+        /* Monitor controls - more 80s */
+        .monitor-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+        }
+
+        .monitor-brand {
+            font-family: 'VT323', monospace;
+            font-size: 14px;
+            color: #555;
+            letter-spacing: 3px;
+        }
+
+        .monitor-knobs {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .knob {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(145deg, #666, #333);
+            border-radius: 50%;
+            border: 2px solid #444;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .led {
+            width: 8px;
+            height: 8px;
+            background: #33ff33;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #33ff33;
+            animation: led-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes led-glow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px #33ff33; }
+            50% { opacity: 0.7; box-shadow: 0 0 4px #33ff33; }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .window {
+                position: relative !important;
+                width: 100% !important;
+                margin-bottom: 8px;
+                top: auto !important;
+                left: auto !important;
+            }
+            
+            .desktop {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .monitor-frame {
+                margin: 4px;
+                padding: 12px;
+            }
+        }
+
+        /* Boot animation */
+        @keyframes boot-up {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        .crt-screen {
+            animation: boot-up 0.8s ease-out;
+        }
+
+        .window {
+            animation: window-appear 0.15s ease-out;
+        }
+
+        @keyframes window-appear {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .window:nth-child(1) { animation-delay: 0.3s; animation-fill-mode: backwards; }
+        .window:nth-child(2) { animation-delay: 0.5s; animation-fill-mode: backwards; }
+        .window:nth-child(3) { animation-delay: 0.7s; animation-fill-mode: backwards; }
+        .window:nth-child(4) { animation-delay: 0.9s; animation-fill-mode: backwards; }
+
+        /* Status bar */
+        .status-bar {
+            background: var(--crt-bg);
+            border-top: 2px solid var(--crt-green);
+            padding: 4px 12px;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'VT323', monospace;
+            font-size: 14px;
+            color: var(--crt-green);
+        }
+    </style>
 </head>
-
-
-
 <body>
-    <h1 class="text-center pt-4"> Luke Chen Homepage </h1>
+    <div class="monitor-frame">
+        <div class="monitor-bezel">
+            <div class="crt-screen">
+                <div class="screen-glow"></div>
+                
+                <!-- Title Bar -->
+                <div class="title-bar">
+                    <span class="title-bar-text">═══ LUKE.EXE v1.0 ═══</span>
+                </div>
 
-    <div class="container-fluid pt-4 px-5 pb-4 mainBox rowcontent fade-in-up">
-        <div class="row mb-3">
-            <div class="col-sm border glowbox mr-sm-2 mb-sm-0 mb-3">
-                <div class="row card-head p-2">
-                    <div class="col card-title-style text-center">
-                        Bio
+                <!-- Desktop -->
+                <div class="desktop">
+                    <!-- BIO Window -->
+                    <div class="window" id="win-bio" style="top: 15px; left: 30px; width: 340px;">
+                        <div class="window-titlebar" onmousedown="startDrag(event, 'win-bio')">
+                            <span class="window-title">BIO.TXT</span>
+                            <div class="window-controls">
+                                <button class="window-btn">X</button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            <div class="dos-text">C:\>type BIO.TXT
+
+==============================
+      LUKE CHEN
+==============================
+
+Former Active Duty Air Force
+Intelligence Officer
+
+AI/ML Enthusiast
+
+Penn Class of 2016
+Wharton MBA 2026
+JHU SAIS MA 2026
+
+INTERESTS:
+ * A.I. for defense tech
+ * History
+ * International relations
+
+C:\><span class="cursor"></span></div>
+                        </div>
+                    </div>
+
+                    <!-- LINKS Window -->
+                    <div class="window" id="win-links" style="top: 20px; right: 30px; left: auto; width: 280px;">
+                        <div class="window-titlebar" onmousedown="startDrag(event, 'win-links')">
+                            <span class="window-title">LINKS.DAT</span>
+                            <div class="window-controls">
+                                <button class="window-btn">X</button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            <div class="dos-text">INTERNET DIRECTORY
+==============================
+
+<a href="https://www.linkedin.com/in/luke-chen-77b48b62/" target="_blank">LinkedIn</a>
+
+<a href="https://github.com/orgulous" target="_blank">Github</a>
+
+<a href="https://twitter.com/reallukechen" target="_blank">Twitter</a>
+
+<a href="https://lukechen.substack.com/" target="_blank">Substack</a>
+
+==============================
+Press link to connect...</div>
+                        </div>
+                    </div>
+
+                    <!-- NARRATIVE Window -->
+                    <div class="window" id="win-narrative" style="top: 60px; left: 400px; width: 420px;">
+                        <div class="window-titlebar" onmousedown="startDrag(event, 'win-narrative')">
+                            <span class="window-title">NARRATIVE.TXT</span>
+                            <div class="window-controls">
+                                <button class="window-btn">X</button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            <div class="dos-text">C:\>type NARRATIVE.TXT
+
+==============================
+
+I work at the intersection of
+technology, business, and
+national security strategy.
+
+I am interested in how systems
+work and why they fail. While
+I focus on defense technology,
+I believe technical tools are
+inseparable from strategic
+studies and history. I want to
+understand the underlying
+structures and incentives that
+govern how we build and deploy
+these technologies.
+
+I read widely, write about
+defense industrial policy, and
+believe the hardest problems
+require bridging disciplines.
+
+==============================
+EOF</div>
+                        </div>
+                    </div>
+
+                    <!-- SKILLS Window -->
+                    <div class="window" id="win-skills" style="top: 200px; right: 50px; left: auto; width: 300px;">
+                        <div class="window-titlebar" onmousedown="startDrag(event, 'win-skills')">
+                            <span class="window-title">SKILLS.DAT</span>
+                            <div class="window-controls">
+                                <button class="window-btn">X</button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            <div class="dos-text">TECHNICAL SKILLS
+==============================
+
+LANGUAGES:
+  Python, SQL, Java
+  Git, SAS, Unix
+
+DOMAINS:
+  Algorithms
+  Databases
+  Probability
+  Linear Algebra
+  Optimization
+  AI/ML
+
+ALSO:
+  R, JS/HTML/CSS
+  Web Design
+
+==============================
+STATUS: OPERATIONAL</div>
+                        </div>
                     </div>
                 </div>
-                <div class="row rowcontent p-2 p-sm-3 text-center">
-                    Former Active Duty Air Force Intel Officer.
-                    AI/ML enthusiast.
-                    Penn Class of 2016.
-                    Wharton MBA Class of 2026 and JHU SAIS Class of 2026.
-                    Interested in A.I. for defense tech, history, and international relations.
-                </div>
-            </div>
-            <div class="col-sm border glowbox ml-sm-2">
-                <div class="row card-head p-2">
-                    <div class="col card-title-style text-center">
-                        Links
-                    </div>
-                </div>
-                <div class="row rowcontent p-2">
-                    <div class="col text-center">
-                        <a href="https://www.linkedin.com/in/luke-chen-77b48b62/">LinkedIn</a>,
-                        <a href="https://github.com/orgulous">Github</a>,
-                        <a href="https://twitter.com/reallukechen">Twitter</a><!-- ,
-                        <a href="https://lukechen.substack.com/">Substack</a>,
-                        <a href="https://www.goodreads.com/user/show/12130293-luke">Goodreads</a>,
-                        <a href="https://linktr.ee/lukechenpenn">Linktree</a> -->
 
-                    </div>
-
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span>READY</span>
+                    <span id="clock">00:00:00</span>
                 </div>
             </div>
         </div>
-        <div class="row mb-3">
-            <div class="col-sm border glowbox">
-                <div class="row card-head p-2">
-                    <div class="col card-title-style text-center">
-                        Projects
-                    </div>
-                </div>
-                <div class="row rowcontent" align="left">
-                    <ul>
-                        <li> Personal Website (you're looking at it!)
-                        <li> <a href="https://www.github.com/orgulous/Go"> Go </a> (ancient Chinese board game). Uses
-                            Python to implement strategy board game.
-                        <li> <a href="https://www.lukechen.net/chen_index.html"> Index of Luke Chens </a>
-                        <li> <a href="https://www.panopticon-ai.com">Panopticon AI</a>. Panopticon AI is an open-source
-                            project for AI-enabled military simulation.
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm border glowbox">
-                <div class="row card-head p-2">
-                    <div class="col card-title-style text-center">
-                        Skills
-                    </div>
-                </div>
-                <div class="row rowcontent" align="left">
-                    <ul>
-                        <li> Proficient in Python, SQL, Java, Git, SAS, and Unix shells.
-                        <li> Skilled in algorithms, databases, probability, linear
-                            algebra, optimization, and AI/ML theory and implementation
-                        <li> Experience with R, JS/HTML/CSS, and web design
-                    </ul>
-                </div>
+        <div class="monitor-controls">
+            <span class="monitor-brand">CHEN-TRON</span>
+            <div class="monitor-knobs">
+                <div class="knob"></div>
+                <div class="knob"></div>
+                <div class="led"></div>
             </div>
         </div>
     </div>
 
-    <script type="text/javascript" src="buttontest.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const h = now.getHours().toString().padStart(2, '0');
+            const m = now.getMinutes().toString().padStart(2, '0');
+            const s = now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Window dragging
+        let dragTarget = null;
+        let dragOffset = { x: 0, y: 0 };
+
+        function startDrag(e, windowId) {
+            const win = document.getElementById(windowId);
+            dragTarget = win;
+            
+            // Bring to front
+            document.querySelectorAll('.window').forEach(w => {
+                w.style.zIndex = '1';
+                w.querySelector('.window-titlebar').classList.add('inactive');
+            });
+            win.style.zIndex = '10';
+            win.querySelector('.window-titlebar').classList.remove('inactive');
+
+            const rect = win.getBoundingClientRect();
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+
+            e.preventDefault();
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (dragTarget) {
+                const desktop = document.querySelector('.desktop');
+                const desktopRect = desktop.getBoundingClientRect();
+                
+                let newX = e.clientX - desktopRect.left - dragOffset.x;
+                let newY = e.clientY - desktopRect.top - dragOffset.y;
+                
+                newX = Math.max(0, Math.min(newX, desktopRect.width - dragTarget.offsetWidth));
+                newY = Math.max(0, Math.min(newY, desktopRect.height - dragTarget.offsetHeight));
+                
+                dragTarget.style.left = newX + 'px';
+                dragTarget.style.top = newY + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            dragTarget = null;
+        });
+
+        // Click to focus
+        document.querySelectorAll('.window').forEach(win => {
+            win.addEventListener('mousedown', () => {
+                document.querySelectorAll('.window').forEach(w => {
+                    w.style.zIndex = '1';
+                    w.querySelector('.window-titlebar').classList.add('inactive');
+                });
+                win.style.zIndex = '10';
+                win.querySelector('.window-titlebar').classList.remove('inactive');
+            });
+        });
+    </script>
 </body>
-
-
-<script>
-    $(document).ready(function () {
-        const element = document.querySelector('.mainBox');
-        element.classList.add('animated', 'fadeIn');
-        setTimeout(function () {
-            element.classList.remove('fadeIn');
-        }, 1300);
-    });
-
-    /* Prevents resubmission error prompt */
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-
-
-
-</script>
-
-
-
 </html>
