@@ -317,25 +317,73 @@
             50% { opacity: 0.7; box-shadow: 0 0 4px #33ff33; }
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .window {
-                position: relative !important;
-                width: 100% !important;
-                margin-bottom: 8px;
-                top: auto !important;
-                left: auto !important;
-            }
-            
-            .desktop {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
+        /* Responsive - iPhone 15 Pro is 393px wide */
+        @media (max-width: 500px) {
+            html, body {
+                height: auto;
+                overflow: auto;
             }
 
             .monitor-frame {
                 margin: 4px;
-                padding: 12px;
+                padding: 8px;
+                border-radius: 8px;
+            }
+
+            .monitor-bezel {
+                padding: 8px;
+            }
+
+            .crt-screen {
+                overflow: visible;
+            }
+
+            .desktop {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                overflow: visible;
+                padding: 4px;
+            }
+
+            .window {
+                position: relative !important;
+                width: 100% !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                margin-bottom: 0;
+            }
+
+            .dos-text {
+                font-size: 18px;
+            }
+
+            .window-content {
+                font-size: 18px;
+            }
+
+            .window-titlebar {
+                cursor: default;
+                font-size: 16px;
+            }
+
+            .window-btn {
+                display: none;
+            }
+
+            .title-bar {
+                font-size: 16px;
+                padding: 4px;
+            }
+
+            .status-bar {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+
+            .monitor-controls {
+                padding: 8px 12px;
             }
         }
 
@@ -390,6 +438,44 @@
 
                 <!-- Desktop -->
                 <div class="desktop">
+                    <!-- NARRATIVE Window -->
+                    <div class="window" id="win-narrative" style="top: 60px; left: 400px; width: 420px;">
+                        <div class="window-titlebar" onmousedown="startDrag(event, 'win-narrative')">
+                            <span class="window-title">NARRATIVE.TXT</span>
+                            <div class="window-controls">
+                                <button class="window-btn">X</button>
+                            </div>
+                        </div>
+                        <div class="window-content">
+                            <div class="dos-text">C:\>type NARRATIVE.TXT
+
+==============================
+
+I work at the intersection of
+technology, business, and
+national security strategy.
+
+I am interested in how systems
+work and why they fail. While
+I focus on defense technology,
+I believe technical tools are
+inseparable from strategic
+studies and history. I want to
+understand the underlying
+structures and incentives that
+govern how we build and deploy
+these technologies.
+
+I read widely, write about
+defense industrial policy, and
+believe the hardest problems
+require bridging disciplines.
+
+==============================
+EOF</div>
+                        </div>
+                    </div>
+
                     <!-- BIO Window -->
                     <div class="window" id="win-bio" style="top: 15px; left: 30px; width: 340px;">
                         <div class="window-titlebar" onmousedown="startDrag(event, 'win-bio')">
@@ -445,44 +531,6 @@ C:\><span class="cursor"></span></div>
 
 ==============================
 Press link to connect...</div>
-                        </div>
-                    </div>
-
-                    <!-- NARRATIVE Window -->
-                    <div class="window" id="win-narrative" style="top: 60px; left: 400px; width: 420px;">
-                        <div class="window-titlebar" onmousedown="startDrag(event, 'win-narrative')">
-                            <span class="window-title">NARRATIVE.TXT</span>
-                            <div class="window-controls">
-                                <button class="window-btn">X</button>
-                            </div>
-                        </div>
-                        <div class="window-content">
-                            <div class="dos-text">C:\>type NARRATIVE.TXT
-
-==============================
-
-I work at the intersection of
-technology, business, and
-national security strategy.
-
-I am interested in how systems
-work and why they fail. While
-I focus on defense technology,
-I believe technical tools are
-inseparable from strategic
-studies and history. I want to
-understand the underlying
-structures and incentives that
-govern how we build and deploy
-these technologies.
-
-I read widely, write about
-defense industrial policy, and
-believe the hardest problems
-require bridging disciplines.
-
-==============================
-EOF</div>
                         </div>
                     </div>
 
