@@ -234,6 +234,14 @@
             font-family: 'VT323', monospace;
         }
 
+        /* Full-width ASCII rule - clips to whatever the window width is */
+        .rule {
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'VT323', monospace;
+            line-height: 1.4;
+        }
+
         .cursor {
             display: inline-block;
             width: 10px;
@@ -448,32 +456,19 @@
                         </div>
                         <div class="window-content">
                             <div class="dos-text">C:\>type NARRATIVE.TXT
-
-==============================
-
+</div>
+                            <div class="rule">================================================================================</div>
+                            <div class="dos-text">
 Hi, I'm Luke.
 
-I spent four years on active duty
-in the Air Force, and I'm still a
-reservist today. Now I work at
-Palantir, helping the military
-actually use its new AI tools.
+I spent four years on active duty in the Air Force, and I'm still a reservist today. Now I work at Palantir, helping the military actually use its new AI tools.
 
-I read a lot, mostly history and
-international relations, with the
-occasional novel thrown in. I'm
-something of a singularity
-believer, and I love being part
-of the DC defense tech scene,
-where I also write a Substack
-on defense industrial base
-issues.
+I read a lot, mostly history and international relations, with the occasional novel thrown in. I'm something of a singularity believer, and I love being part of the DC defense tech scene, where I also write a Substack on defense industrial base issues.
 
-When I'm not doing any of that,
-I'm out downhill longboarding.
-
-==============================
-EOF</div>
+When I'm not doing any of that, I'm out downhill longboarding.
+</div>
+                            <div class="rule">================================================================================</div>
+                            <div class="dos-text">EOF</div>
                         </div>
                     </div>
 
