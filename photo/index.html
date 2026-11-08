@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1ea">
+  <meta name="description" content="A small photo collection by Luke Chen.">
+  <title>Photographs — Luke Chen</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f1ea;
+      --ink: #262822;
+      --muted: #77786f;
+      --line: #d8d5cc;
+      --accent: #a9442c;
+      --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --sans: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { width: min(1320px, calc(100% - 64px)); margin-inline: auto; }
+    header { height: 76px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .wordmark { text-decoration: none; font-size: 14px; font-weight: 650; letter-spacing: -.025em; }
+    .wordmark span { color: var(--muted); font-weight: 400; }
+    nav { display: flex; gap: 30px; align-items: center; font-size: 12px; letter-spacing: .045em; }
+    nav a { text-decoration: none; }
+    nav a:hover, nav a:focus-visible { color: var(--accent); }
+    .intro { display: grid; grid-template-columns: 1.05fr .75fr; align-items: end; gap: 7vw; padding: clamp(58px, 9vw, 132px) 0 54px; }
+    .eyebrow { margin: 0 0 22px; color: var(--accent); font-size: 10px; letter-spacing: .19em; text-transform: uppercase; }
+    h1 { max-width: 780px; margin: 0; font-family: var(--serif); font-size: clamp(54px, 8.2vw, 116px); font-weight: 400; letter-spacing: -.065em; line-height: .91; }
+    h1 em { color: var(--accent); font-weight: 400; }
+    .intro-copy { max-width: 390px; margin: 0 0 5px; color: #55574f; font-size: 15px; line-height: 1.8; }
+    .cover { margin: 0; }
+    .cover img { display: block; width: 100%; height: auto; }
+    .section-head { display: flex; align-items: baseline; justify-content: space-between; padding: 78px 0 22px; border-bottom: 1px solid var(--line); }
+    h2 { margin: 0; font-family: var(--serif); font-size: 31px; font-weight: 400; letter-spacing: -.035em; }
+    .count { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+    .gallery { columns: 3 260px; column-gap: 17px; padding: 18px 0 90px; }
+    figure { break-inside: avoid; margin: 0 0 17px; }
+    .gallery img { display: block; width: 100%; height: auto; background: #e5e1d8; }
+    .gallery figcaption { display: flex; justify-content: space-between; gap: 12px; padding: 9px 1px 0; color: #65665e; font-size: 10px; letter-spacing: .075em; text-transform: uppercase; }
+    .gallery figcaption span:last-child { color: #96958c; }
+    .about { display: grid; grid-template-columns: .8fr 1fr; gap: 9vw; padding: 45px 0 80px; border-top: 1px solid var(--line); }
+    .about h2 { font-size: clamp(32px, 4vw, 50px); }
+    .about p { max-width: 540px; margin: 0; color: #55574f; font-size: 14px; line-height: 1.85; }
+    .linkedin { display: inline-flex; align-items: center; gap: 10px; margin-top: 22px; color: var(--accent); font-size: 12px; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+    footer { display: flex; justify-content: space-between; padding: 18px 0 27px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; letter-spacing: .07em; }
+    @media (max-width: 700px) {
+      .wrap { width: min(100% - 36px, 560px); }
+      header { height: 64px; }
+      nav { gap: 17px; font-size: 11px; }
+      .intro { grid-template-columns: 1fr; gap: 24px; padding: 66px 0 30px; }
+      h1 { font-size: clamp(58px, 15vw, 94px); }
+      .intro-copy { max-width: 470px; font-size: 14px; }
+      .section-head { padding-top: 57px; }
+      .gallery { columns: 2 145px; column-gap: 10px; padding-top: 12px; }
+      .gallery figure { margin-bottom: 12px; }
+      .about { grid-template-columns: 1fr; gap: 18px; padding: 34px 0 58px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="wordmark" href="#top">Luke Chen <span>/ photographs</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#photographs">Photographs</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <h1 id="page-title">Photos.</h1>
+        </div>
+        <p class="intro-copy">A small collection of photographs by Luke Chen.</p>
+      </section>
+
+      <figure class="cover">
+        <img src="web/IMG_2835.jpg" alt="The Bolivia Altiplano" fetchpriority="high">
+      </figure>
+
+      <section id="photographs" aria-labelledby="gallery-title">
+        <div class="section-head">
+          <h2 id="gallery-title">Photos</h2>
+        </div>
+        <div class="gallery">
+          <figure><img src="web/IMG_0742.jpg" alt="A brightly lit pavilion at night" loading="lazy"><figcaption><span>Ghost Festival in Keelung, Taiwan</span><span>01</span></figcaption></figure>
+          <figure><img src="web/IMG_2067.jpg" alt="A lively market lane beneath colorful fabric canopies" loading="lazy"><figcaption><span>Linares Street in La Paz</span><span>02</span></figcaption></figure>
+          <figure><img src="web/IMG_2299.jpg" alt="A barn standing in a snowstorm" loading="lazy"><figcaption><span>Chacaltaya Ski Resort</span><span>03</span></figcaption></figure>
+          <figure><img src="web/IMG_2418.jpg" alt="A shopkeeper in a warmly lit market stall" loading="lazy"><figcaption><span>Salt Packaging at Salar de Uyuni</span><span>04</span></figcaption></figure>
+          <figure><img src="web/IMG_2425.jpg" alt="Orange jellyfish drifting in clear blue water" loading="lazy"><figcaption><span>Jellyfish at the National Aquarium</span><span>05</span></figcaption></figure>
+          <figure><img src="web/IMG_2521.jpg" alt="A vast pale landscape under a layered sky" loading="lazy"><figcaption><span>Salar de Uyuni</span><span>06</span></figcaption></figure>
+          <figure><img src="web/IMG_2712.jpg" alt="A flamingo wading in an Andean lagoon with mountains beyond" loading="lazy"><figcaption><span>Flamingos in the Bolivian Altiplano</span><span>07</span></figcaption></figure>
+          <figure><img src="web/IMG_3023.jpg" alt="Two sculpted figures overlooking a lake" loading="lazy"><figcaption><span>Sun and Moon Gods at Lake Titicaca</span><span>08</span></figcaption></figure>
+          <figure><img src="web/IMG_3819.jpg" alt="Visitors gathered in a deep stone stepwell" loading="lazy"><figcaption><span>Agrasen ki Baoli, New Delhi</span><span>09</span></figcaption></figure>
+          <figure><img src="web/IMG_5055.jpg" alt="An old brick hotel on a quiet town street" loading="lazy"><figcaption><span>Shaniko, Oregon</span><span>10</span></figcaption></figure>
+          <figure><img src="web/IMG_5259.jpg" alt="Sunset light catching the tops of trees" loading="lazy"><figcaption><span>Big Bend National Park</span><span>11</span></figcaption></figure>
+          <figure><img src="web/IMG_5362.jpg" alt="A walking tour passing ancient stone ruins" loading="lazy"><figcaption><span>World War II Ruins at Tabacchificio Fiocche</span><span>12</span></figcaption></figure>
+          <figure><img src="web/IMG_5731.jpg" alt="A guide speaking beside an old stone wall" loading="lazy"><figcaption><span>Polish Cemetery at Monte Cassino</span><span>13</span></figcaption></figure>
+          <figure><img src="web/IMG_6538.jpg" alt="People gathered among ancient columns" loading="lazy"><figcaption><span>Roman Forum</span><span>14</span></figcaption></figure>
+          <figure><img src="web/IMG_7727-2.jpg" alt="Longboarders carving along a winding mountain road" loading="lazy"><figcaption><span>Maryhill Loops</span><span>15</span></figcaption></figure>
+          <figure><img src="web/IMG_8200-1.jpg" alt="A coastal town glowing after sunset" loading="lazy"><figcaption><span>Charlotte Amalie</span><span>16</span></figcaption></figure>
+          <figure><img src="web/storm%20v5.jpg" alt="Lightning over a city at night" loading="lazy"><figcaption><span>Dayton, Ohio</span><span>17</span></figcaption></figure>
+        </div>
+      </section>
+
+      <section class="about" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <div>
+          <p>This is a small personal collection of photos.</p>
+          <!-- Replace the LinkedIn URL below with your profile when ready. -->
+          <a class="linkedin" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">Find me on LinkedIn <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>Luke Chen · Photographs</span></footer>
+  </div>
+</body>
+</html>
+
+
